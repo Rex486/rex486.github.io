@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naif Ghous</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            color: #f5f3ff;
+            font-family: ui-sans-serif, system-ui, sans-serif;
+            background-color: #2e1065;
+            overflow-x: hidden;
+        }
+
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            filter: blur(60px);
+            overflow: hidden;
+            background: linear-gradient(to bottom, #2e1065, #550060);
+        }
+
+        .blob {
+            position: absolute;
+            width: 50vw;
+            height: 50vw;
+            border-radius: 50%;
+            opacity: 0.8;
+            mix-blend-mode: overlay;
+            will-change: transform;
+            animation: moveAround 12s infinite alternate ease-in-out;
+        }
+
+        .blob-1 {
+            background: #7a5ea8;
+            top: -10%;
+            left: -10%;
+        }
+
+        .blob-2 {
+            background: #550060;
+            bottom: -10%;
+            right: -10%;
+            animation-duration: 15s;
+            animation-delay: -3s;
+        }
+
+        .blob-3 {
+            background: #a78bfa;
+            top: 20%;
+            left: 40%;
+            width: 30vw;
+            height: 30vw;
+            animation-duration: 20s;
+        }
+
+        @keyframes moveAround {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30vw, 20vh) scale(1.2); }
+            66% { transform: translate(-10vw, 40vh) scale(0.8); }
+            100% { transform: translate(20vw, -10vh) scale(1); }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1.4rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(46, 16, 101, 0.45);
+            backdrop-filter: blur(15px) brightness(1.1);
+            -webkit-backdrop-filter: blur(15px) brightness(1.1);
+            border-bottom: 1px solid rgba(167, 139, 250, 0.3);
+            box-shadow: 0 2px 18px rgba(167, 139, 250, 0.12);
+        }
+
+        .logo {
+            font-family: monospace;
+            font-size: 1.25rem;
+            color: #c4b5fd;
+            font-weight: 700;
+        }
+
+        .nav-link {
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: rgba(245, 243, 255, 0.6);
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(167, 139, 250, 0.7);
+        }
+
+        .menu-btn {
+            display: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        section {
+            padding: 8rem 10% 5rem 10%;
+            width: 100%;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .title-purple {
+            color: #c4b5fd;
+            font-family: monospace;
+            letter-spacing: 0.4em;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin: 1.5rem 0;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.75rem;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #f5f3ff;
+            backdrop-filter: blur(10px);
+        }
+
+        .tag {
+            font-size: 0.6rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #c4b5fd;
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            padding: 0.3rem 0.8rem;
+            border-radius: 2rem;
+            background: rgba(167, 139, 250, 0.1);
+        }
+
+        .skill-group,
+        .credential-card,
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+
+        .skill-group:hover,
+        .credential-card:hover,
+        .glass-card:hover {
+            border-color: rgba(167, 139, 250, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 0 30px rgba(167,139,250,0.2);
+        }
+
+        .icon-box {
+            width: 56px;
+            height: 56px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            font-size: 1.6rem;
+            background: rgba(167,139,250,0.1);
+            border: 1px solid rgba(167,139,250,0.25);
+            transition: 0.3s;
+        }
+
+        .credential-card:hover .icon-box,
+        .glass-card:hover .icon-box {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(167,139,250,0.4);
+        }
+
+        .credential-card h4 {
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .credential-card p {
+            color: rgba(245, 243, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 5%;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem 5%;
+                background: rgba(46, 16, 101, 0.92);
+                backdrop-filter: blur(18px);
+                border-bottom: 1px solid rgba(167, 139, 250, 0.3);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            section {
+                padding: 6rem 5% 4rem 5%;
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .title-purple {
+                letter-spacing: 0.2em;
+                line-height: 1.8;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <nav>
+        <div class="logo">N.G</div>
+
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+        <div class="nav-links flex gap-8" id="navLinks">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#education" class="nav-link">Education</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#certs" class="nav-link">Certs</a>
+            <a href="#languages" class="nav-link">Languages</a>
+            <a href="#resume" class="nav-link">Resume</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <span class="text-purple-300 font-mono text-xs uppercase tracking-widest">
+            Computer Science Graduate
+        </span>
+
+        <h1 class="text-white text-7xl md:text-9xl font-extrabold tracking-tighter leading-none mt-4 drop-shadow-2xl">
+            Naif Ghous
+        </h1>
+
+        <p class="title-purple">
+            Drone Software | PX4 | ROS2 | Front-end Developer | UI/UX | App Developer
+        </p>
+
+        <p class="max-w-3xl text-lg text-purple-100/70 leading-relaxed mb-8">
+            Computer Science graduate with a strong ambition to develop and build meaningful projects. Motivated to learn,
+            grow, and take on new challenges, with a willingness to continuously improve and contribute in a professional
+            environment.
+        </p>
+
+        <div class="flex flex-wrap gap-4 mb-10">
+            <div class="badge">🏆 NEOM Research Golden Medal</div>
+            <div class="badge">👨‍🏫 15h Programming Training – Orphans Care</div>
+            <div class="badge">🔐 Cybersecurity Leader (CO-OP)</div>
+            <div class="badge">🎨 Aman Exhibition Poster Designer</div>
+            <div class="badge">🎤 Interviewed by APET Group</div>
+            <div class="badge">📚 Arab Reading Challenge (1st / 8th)</div>
+        </div>
+
+        <div class="flex flex-wrap gap-8 text-xs font-bold text-purple-200/60 uppercase tracking-widest">
+            <span>📞 +966 55 789 3533</span>
+
+            <a href="mailto:naifghous@gmail.com" class="hover:text-white transition">
+                📧 naifghous@gmail.com
+            </a>
+
+            <a href="https://www.linkedin.com/in/naif-ghous-a1a749342" target="_blank" class="hover:text-white transition">
+                💼 linkedin.com/in/naif-ghous
+            </a>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2 class="text-5xl font-extrabold text-white mb-16 border-b border-white/10 pb-6">
+            Education
+        </h2>
+
+        <div class="space-y-10">
+            <div class="glass-card flex flex-col md:flex-row justify-between gap-6">
+                <div>
+                    <h3 class="text-2xl font-bold text-white">Bachelor in Computer Science</h3>
+                    <p class="text-purple-300 font-mono text-sm mt-2">
+                        Islamic University // Faculty of Computer & Info Systems
+                    </p>
+                    <p class="text-purple-100/50 mt-3">
+                        Distinguished member of the APET group.
+                    </p>
+                </div>
+                <span class="text-purple-200/50 font-mono text-lg">2025</span>
+            </div>
+
+            <div class="glass-card flex flex-col md:flex-row justify-between gap-6">
+                <div>
+                    <h3 class="text-2xl font-bold text-white">Drones Programming Bootcamp</h3>
+                    <p class="text-purple-300 font-mono text-sm mt-2">Tuwaiq Academy</p>
+                    <ul class="text-purple-100/50 mt-4 space-y-2 text-sm">
+                        <li>• Training in PX4, Gazebo, ROS 2, and MAVSDK.</li>
+                        <li>• Built full autonomous project: Skyline Artifacts.</li>
+                    </ul>
+                </div>
+                <span class="text-purple-200/50 font-mono text-lg">2026</span>
+            </div>
+
+            <div class="glass-card flex flex-col md:flex-row justify-between gap-6">
+                <div>
+                    <h3 class="text-2xl font-bold text-white">Computer Vision Program</h3>
+                    <p class="text-purple-300 font-mono text-sm mt-2">Sadia Academy</p>
+                    <ul class="text-purple-100/50 mt-4 space-y-2 text-sm">
+                        <li>• Developed Saudi Street Watch for public violation detection.</li>
+                        <li>• Built object detection models using YOLO.</li>
+                        <li>• Managed dataset preparation, training, and evaluation.</li>
+                        <li>• Applied solution to real-world monitoring and compliance.</li>
+                    </ul>
+                </div>
+                <span class="text-purple-200/50 font-mono text-lg">2026</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="text-5xl font-extrabold text-white mb-16 border-b border-white/10 pb-6">
+            Projects
+        </h2>
+
+        <div class="space-y-12">
+            <div class="glass-card flex flex-col md:flex-row gap-8">
+                <div class="font-mono text-white/25 md:w-32">01 / 03</div>
+                <div>
+                    <div class="icon-box">⛽</div>
+                    <h3 class="text-3xl font-bold text-white mb-4">Online Gas Cylinder System</h3>
+                    <p class="text-purple-100/60 mb-6 leading-relaxed">
+                        Full-stack web application for cylinder sales management.
+                        Features secure authentication, inventory tracking, and admin controls.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">Flask</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">Python</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card flex flex-col md:flex-row gap-8">
+                <div class="font-mono text-white/25 md:w-32">02 / 03</div>
+                <div>
+                    <div class="icon-box">🚁</div>
+                    <h3 class="text-3xl font-bold text-white mb-4">Skyline Artifacts</h3>
+                    <p class="text-purple-100/60 mb-6 leading-relaxed">
+                        Developed an autonomous survey drone system using PX4 SITL and Gazebo for mapping ground artifacts.
+                        Integrated ROS 2 for real-time camera streaming and mission handling via MAVSDK.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">PX4</span>
+                        <span class="tag">MAVSDK</span>
+                        <span class="tag">ROS 2</span>
+                        <span class="tag">Python</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card flex flex-col md:flex-row gap-8">
+                <div class="font-mono text-white/25 md:w-32">03 / 03</div>
+                <div>
+                    <div class="icon-box">🚦</div>
+                    <h3 class="text-3xl font-bold text-white mb-4">Saudi Street Watch</h3>
+                    <p class="text-purple-100/60 mb-6 leading-relaxed">
+                        AI-based system to detect public street violations.
+                        Trained custom YOLO models on labeled datasets and built inference pipelines using OpenCV.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">YOLO</span>
+                        <span class="tag">OpenCV</span>
+                        <span class="tag">Computer Vision</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="text-5xl font-extrabold text-white mb-16 border-b border-white/10 pb-6">
+            Skills
+        </h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="skill-group">
+                <h4 class="text-purple-300 uppercase font-bold text-xs tracking-widest mb-6">
+                    Programming
+                </h4>
+                <ul class="text-white/90 space-y-3 text-sm">
+                    <li>• Python</li>
+                    <li>• SQL</li>
+                    <li>• Java</li>
+                    <li>• C Language</li>
+                    <li>• Swift (Basics)</li>
+                    <li>• HTML</li>
+                    <li>• Flutter</li>
+                    <li>• Scratch Development</li>
+                </ul>
+            </div>
+
+            <div class="skill-group">
+                <h4 class="text-purple-300 uppercase font-bold text-xs tracking-widest mb-6">
+                    Drones
+                </h4>
+                <ul class="text-white/90 space-y-3 text-sm">
+                    <li>• PX4</li>
+                    <li>• MAVSDK</li>
+                    <li>• ROS 2</li>
+                    <li>• Gazebo</li>
+                    <li>• Autonomous Drone Programming</li>
+                    <li>• Mission Planning</li>
+                    <li>• Simulation Workflows</li>
+                </ul>
+            </div>
+
+            <div class="skill-group">
+                <h4 class="text-purple-300 uppercase font-bold text-xs tracking-widest mb-6">
+                    AI & Computer Vision
+                </h4>
+                <ul class="text-white/90 space-y-3 text-sm">
+                    <li>• YOLO</li>
+                    <li>• OpenCV</li>
+                    <li>• Machine Learning</li>
+                    <li>• Computer Vision</li>
+                    <li>• Dataset Preparation</li>
+                    <li>• Model Training</li>
+                    <li>• Performance Evaluation</li>
+                </ul>
+            </div>
+
+            <div class="skill-group">
+                <h4 class="text-purple-300 uppercase font-bold text-xs tracking-widest mb-6">
+                    Soft Skills
+                </h4>
+                <ul class="text-white/90 space-y-3 text-sm">
+                    <li>• Logical Reasoning</li>
+                    <li>• Critical Thinking</li>
+                    <li>• Problem Solving</li>
+                    <li>• Adaptability</li>
+                    <li>• Self-Learning</li>
+                    <li>• Debugging & Troubleshooting</li>
+                    <li>• Public Speaking & Presentation</li>
+                    <li>• Social Media Management</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="certs">
+        <h2 class="text-5xl font-extrabold text-white mb-16 border-b border-white/10 pb-6">
+            Certifications
+        </h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="credential-card">
+                <div class="icon-box">🐍</div>
+                <h4>Python Series (101–104)</h4>
+                <p>Programming & Software Development</p>
+            </div>
+
+            <div class="credential-card">
+                <div class="icon-box">🗄️</div>
+                <h4>SQL Series (101–103)</h4>
+                <p>Programming & Software Development</p>
+            </div>
+
+            <div class="credential-card">
+                <div class="icon-box">📊</div>
+                <h4>Data Analysis + Numpy + Pandas</h4>
+                <p>Artificial Intelligence & Data</p>
+            </div>
+
+            <div class="credential-card">
+                <div class="icon-box">📈</div>
+                <h4>Matplotlib & Seaborn</h4>
+                <p>Data Visualization</p>
+            </div>
+
+            <div class="credential-card">
+                <div class="icon-box">🤖</div>
+                <h4>Machine Learning Fundamentals</h4>
+                <p>Artificial Intelligence & Data</p>
+            </div>
+
+            <div class="credential-card">
+                <div class="icon-box">🔐</div>
+                <h4>Cybersecurity & Zero Trust</h4>
+                <p>Atta Digital</p>
+            </div>
+
+            <div class="credential-card">
+                <div class="icon-box">🛡️</div>
+                <h4>Future of Cybersecurity & Digital Crimes</h4>
+                <p>Cybersecurity & Technology</p>
+            </div>
+
+            <div class="credential-card">
+                <div class="icon-box">🎨</div>
+                <h4>UI/UX Design Certificate</h4>
+                <p>Design & Creative Tools</p>
+            </div>
+
+            <div class="credential-card">
+                <div class="icon-box">📱</div>
+                <h4>Flutter Development Certificate</h4>
+                <p>Mobile Development</p>
+            </div>
+
+            <div class="credential-card">
+                <div class="icon-box">🧩</div>
+                <h4>Git Essentials</h4>
+                <p>Version Control</p>
+            </div>
+
+            <div class="credential-card">
+                <div class="icon-box">🌍</div>
+                <h4>English Language Certificates</h4>
+                <p>Wall Street & Shafi Institute</p>
+            </div>
+
+            <div class="credential-card">
+                <div class="icon-box">🌐</div>
+                <h4>Metaverse World: Law & Logic</h4>
+                <p>Atta Digital</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="languages">
+        <h2 class="text-5xl font-extrabold text-white mb-16 border-b border-white/10 pb-6">
+            Languages
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="credential-card">
+                <div class="icon-box">🇸🇦</div>
+                <h4>Arabic</h4>
+                <p>Mother Tongue</p>
+            </div>
+
+            <div class="credential-card">
+                <div class="icon-box">🇬🇧</div>
+                <h4>English</h4>
+                <p>Fluent</p>
+            </div>
+
+            <div class="credential-card">
+                <div class="icon-box">🇫🇷</div>
+                <h4>French</h4>
+                <p>A2</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="resume">
+        <h2 class="text-5xl font-extrabold text-white mb-16 border-b border-white/10 pb-6">
+            Resume
+        </h2>
+
+        <div class="credential-card max-w-2xl">
+            <div class="icon-box">📄</div>
+
+            <h4 class="text-white text-xl font-bold mb-2">
+                Naif Ghous CV
+            </h4>
+
+            <p class="text-purple-100/60 mb-6">
+                View or download my resume.
+            </p>
+
+            <div class="flex gap-4 flex-wrap">
+                <a href="Naif_Ghous_CV.pdf" target="_blank"
+                   class="bg-white text-purple-900 px-6 py-3 rounded-full font-bold hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] transition">
+                    📄 View Resume
+                </a>
+
+                <a href="Naif_Ghous_CV.pdf" download
+                   class="border border-purple-300/40 text-white px-6 py-3 rounded-full font-bold hover:bg-white/10 transition">
+                    ⬇ Download CV
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="py-32 px-10 text-center border-t border-white/10 mt-20">
+        <p class="text-purple-200/40 uppercase tracking-widest text-xs mb-8">
+            Ready to collaborate?
+        </p>
+
+        <a href="mailto:naifghous@gmail.com"
+           class="text-3xl md:text-6xl font-light text-white hover:text-purple-200 transition tracking-tight border-b-2 border-white/10 pb-4 hover:border-purple-300">
+            naifghous@gmail.com
+        </a>
+
+        <div class="mt-16 flex justify-center gap-10 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition">
+            <a href="https://www.linkedin.com/in/naif-ghous-a1a749342" target="_blank"
+               class="text-xs uppercase tracking-widest font-bold text-purple-200 hover:text-white transition">
+                LinkedIn
+            </a>
+            <a href="#" class="text-xs uppercase tracking-widest font-bold text-purple-200 hover:text-white transition">
+                GitHub
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("navLinks").classList.toggle("active");
+        }
+
+        document.querySelectorAll(".nav-link").forEach(link => {
+            link.addEventListener("click", () => {
+                document.getElementById("navLinks").classList.remove("active");
+            });
+        });
+    </script>
+</body>
+</html>
