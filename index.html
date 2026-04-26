@@ -93,6 +93,11 @@
             font-weight: 700;
         }
 
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
         .nav-link {
             text-transform: uppercase;
             font-size: 0.7rem;
@@ -100,6 +105,7 @@
             letter-spacing: 0.2em;
             color: rgba(245, 243, 255, 0.6);
             transition: 0.3s;
+            white-space: nowrap;
         }
 
         .nav-link:hover {
@@ -114,6 +120,7 @@
             cursor: pointer;
             background: none;
             border: none;
+            line-height: 1;
         }
 
         section {
@@ -214,7 +221,7 @@
 
         @media (max-width: 768px) {
             nav {
-                padding: 1rem 5%;
+                padding: 0.9rem 5%;
             }
 
             .menu-btn {
@@ -224,32 +231,71 @@
             .nav-links {
                 display: none;
                 position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
+                top: calc(100% + 10px);
+                right: 5%;
+                width: auto;
+                min-width: 190px;
                 flex-direction: column;
-                gap: 1rem;
-                padding: 1.5rem 5%;
-                background: rgba(46, 16, 101, 0.92);
+                gap: 0.35rem;
+                padding: 0.9rem;
+                background: rgba(46, 16, 101, 0.96);
                 backdrop-filter: blur(18px);
-                border-bottom: 1px solid rgba(167, 139, 250, 0.3);
+                -webkit-backdrop-filter: blur(18px);
+                border: 1px solid rgba(167, 139, 250, 0.35);
+                border-radius: 1rem;
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
             }
 
             .nav-links.active {
                 display: flex;
             }
 
+            .nav-link {
+                display: block;
+                width: 100%;
+                padding: 0.7rem 0.8rem;
+                font-size: 0.72rem;
+                letter-spacing: 0.14em;
+                border-radius: 0.7rem;
+            }
+
+            .nav-link:hover {
+                background: rgba(255, 255, 255, 0.08);
+            }
+
             section {
                 padding: 6rem 5% 4rem 5%;
             }
 
+            .hero {
+                min-height: 100vh;
+                padding-top: 7rem;
+            }
+
             .hero h1 {
-                font-size: 4rem;
+                font-size: 3.5rem;
+                line-height: 0.95;
             }
 
             .title-purple {
-                letter-spacing: 0.2em;
-                line-height: 1.8;
+                letter-spacing: 0.14em;
+                line-height: 1.7;
+                font-size: 0.72rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .nav-links {
+                right: 4%;
+                min-width: 175px;
+            }
+
+            .badge {
+                font-size: 0.72rem;
             }
         }
     </style>
@@ -265,9 +311,9 @@
     <nav>
         <div class="logo">N.G</div>
 
-        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <button class="menu-btn" onclick="toggleMenu()" aria-label="Open navigation menu">☰</button>
 
-        <div class="nav-links flex gap-8" id="navLinks">
+        <div class="nav-links" id="navLinks">
             <a href="#" class="nav-link">Home</a>
             <a href="#education" class="nav-link">Education</a>
             <a href="#projects" class="nav-link">Projects</a>
